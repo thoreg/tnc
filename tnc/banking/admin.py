@@ -1,3 +1,10 @@
 from django.contrib import admin
 
-# Register your models here.
+from .models import DKBTransaction
+
+
+class DKBTransactionAdmin(admin.ModelAdmin):
+    list_display = ("value_date", "receiver", "amount")
+
+
+admin.site.register(DKBTransaction, DKBTransactionAdmin)

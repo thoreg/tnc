@@ -1,0 +1,50 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+  <meta name="description" content="TNC Business Machine">
+  <meta name="author" content="Thomas Rega">
+  <title>TNCBM - TNC Business Machine</title>
+  <link rel="stylesheet" type="text/css" href="{% static '/css/jquery-ui.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static '/css/css.css' %}">
+</head>
+<body>
+  <div id="m13-sidebar" class="sidebar">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
+    <a href="/otto/">otto</a>
+    <a href="/z/">zalando</a>
+    <a href="/etsy/">etsy</a>
+    <a href="/galaxus/">galaxus</a>
+    <a href="/galeria/">galeria</a>
+    <a href="/shipping/">shipping</a>
+    <a href="/core/return-shipments-stats">z_calculator</a>
+    <a href="/z/finance/upload">z_file_upload</a>
+    <a href="/addi/core/price/">prices</a>
+  </div>
+  <button class="openbtn" onclick="openNav()">☰</button>
+  {% for message in messages %}
+    {% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+    <div class="alert alert-success text-center">
+      <h3>
+        SUCCESS: {{ message }}
+      </h3>
+    </div>
+    {% endif %}
+    {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+    <div class="alert alert-error text-center">
+      <h3>
+        ERROR: {{ message }}
+      </h3>
+    </div>
+    {% endif %}
+  {% endfor %}
+  {% block header %}{% endblock %}
+  {% block content %}{% endblock %}
+  {% block footer %}{% endblock %}
+  <script type="text/javascript" src="{% static '/js/main.js' %}"></script>
+</body>
+</html>

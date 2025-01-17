@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% block header %}
+<h2>Upload DKB Transaction CSVs</h2>
+Supported formats:
+<ul>
+  <li>...</li>
+</ul>
+<div id="msg">
+  {{ msg }}
+</div>
+
+{% if messages %}
+  {% for message in messages %}
+    <div class={{ message.tags }}>{{ message }}</div>
+  {% endfor %}
+{% endif %}
+
+<form method = "post", enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="m13-btn" title="Submit this form" style="float: left;">
+        SUBMIT
+    </button>
+</form>
+
+<form action={% url "banking_upload_files" %}>
+    <button type="submit" class="m13-btn" title="Clear this form" style="float: left;">
+        CLEAR
+    </button>
+</form>
+
+{% endblock %}
+
+{% block content %}
+<div id="main">
+  <hr style="margin: 3em 0; border-top: 1px; color: #aaa;">
+  <table>
+    <thead>
+      <th>name</th>
+      <th>processed</th>
+      <th>created</th>
+    </thead>
+    <tbody>
+    {% for file in file_uploads %}
+    <tr>
+      <td>{{ file.file_name }}</td>
+      <td>
+        {% if file.processed %}
+          <div style="width: 1.5rem; height: 1.5rem; background: green; border-radius: 50%; text-align: center; vertical-align: middle;"></div>
+        {% else %}
+          <div style="width: 1.5rem; height: 1.5rem; background: red; border-radius: 50%; text-align: center; vertical-align: middle;"></div>
+        {% endif %}
+      </td>
+      <td>{{ file.created | date:"c" }}</td>
+    </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}
